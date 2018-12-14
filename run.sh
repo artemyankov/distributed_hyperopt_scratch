@@ -2,7 +2,7 @@
 
 export MONGO_DB_HOST==$(echo $PS_HOSTS | awk -F ':' '{print $1}')
 export MONGO_DB_PORT=5000
-
+export EXPERIMENT_NAME
 
 if [[ $JOB_NAME == "ps" ]]; then
     # install mongo and open up port
@@ -16,5 +16,6 @@ if [[ $JOB_NAME == "ps" ]]; then
     echo "[+] Im a PS running Mongo"
 else
     echo "[+] Im a worker ready for action..."
+    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 &
     #python examples/parallel-examples/bianchini/runner.py
 fi
