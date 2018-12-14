@@ -10,7 +10,9 @@ if [[ $JOB_NAME == "ps" ]]; then
     echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
     apt-get update
     apt-get install -y mongodb-org
-    mongod --fork --logpath ./mongod.log --port $MONGO_DB_PORT
+  #  mongod --fork --logpath ./mongod.log --port $MONGO_DB_PORT
+    mongod --dbpath . --port $MONGO_DB_PORT --directoryperdb --fork --journal --logpath log.log --nohttpinterface
+
    # mongod --port 5000 &
 
     echo "[+] Im a PS running Mongo"
