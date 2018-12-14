@@ -13,11 +13,11 @@ if [[ $JOB_NAME == "ps" ]]; then
   #  mongod --fork --logpath ./mongod.log --port $MONGO_DB_PORT
     mongod --dbpath . --port $MONGO_DB_PORT --directoryperdb --fork --journal --logpath log.log --nohttpinterface
 
-   # mongod --port 5000 &
 
     echo "[+] Im a PS running Mongo"
 else
     echo "[+] Im a worker ready for action..."
+    python ./main.py &
     hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1
     #python examples/parallel-examples/bianchini/runner.py
 fi
