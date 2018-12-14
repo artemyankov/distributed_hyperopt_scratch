@@ -18,6 +18,6 @@ if [[ $JOB_NAME == "ps" ]]; then
 else
     echo "[+] Im a worker ready for action..."
     sleep 180
-    python ./main.py &
-    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 --max-consecutive-failures=9999
+    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 &
+    python ./main.py
 fi
