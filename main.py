@@ -10,6 +10,7 @@ def main():
     experiment_name = os.environ["EXPERIMENT_NAME"]
 
     mongo_process = "mongo://{0}:{1}/foo_db/jobs".format(mongo_db_host, mongo_db_port)
+    print(mongo_process)
 
     trials = MongoTrials(mongo_process, exp_key=experiment_name)
     best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=10)
