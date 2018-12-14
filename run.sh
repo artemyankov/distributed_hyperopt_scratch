@@ -20,5 +20,4 @@ else
     sleep 60
     python ./main.py &
     hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 --max-consecutive-failures=9999
-    #python examples/parallel-examples/bianchini/runner.py
 fi

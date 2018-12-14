@@ -1,5 +1,6 @@
 import math
 import os
+import json
 from hyperopt import fmin, tpe, hp
 from hyperopt.mongoexp import MongoTrials
 
@@ -12,7 +13,9 @@ def main():
 
     trials = MongoTrials(mongo_process, exp_key=experiment_name)
     best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=10)
-    print(best)
+
+    with open("./best_val.txt", "w") as f:
+        f.write(json.dumps(best))
 
 if __name__ == "__main__":
     main()
