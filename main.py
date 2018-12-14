@@ -3,7 +3,6 @@ import os
 from hyperopt import fmin, tpe, hp
 from hyperopt.mongoexp import MongoTrials
 
-print(os.environ)
 def main():
     mongo_db_host = os.environ["MONGO_DB_HOST"]
     mongo_db_port = os.environ["MONGO_DB_PORT"]
