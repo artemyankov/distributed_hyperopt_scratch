@@ -17,7 +17,6 @@ if [[ $JOB_NAME == "ps" ]]; then
     echo "[+] Im a PS running Mongo"
 else
     echo "[+] Im a worker ready for action..."
-   # sleep 180
-    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 &
+    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 --exp-key=$EXPERIMENT_NAME --max-consecutive-failures=9999 &
     python ./main.py
 fi
