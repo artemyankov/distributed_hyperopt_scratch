@@ -22,9 +22,11 @@ def main():
         else:
             best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=10)
 
-            best_path = get_logs_path("./logs")
-            with open(os.path.join(best_path, "./best_val.txt"), "w") as f:
-                f.write(json.dumps(best))
+            if os.environ["JOB_NAME"] == "ps":
+                best_path = get_logs_path("./logs")
+                with open(os.path.join(best_path, "./best_val.txt"), "w") as f:
+                    f.write(json.dumps(best))
+
             return
 
 if __name__ == "__main__":
