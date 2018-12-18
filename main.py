@@ -4,6 +4,7 @@ import json
 from hyperopt import fmin, tpe, hp
 from hyperopt.mongoexp import MongoTrials
 from pymongo.errors import ServerSelectionTimeoutError
+from clusterone import get_logs_path
 
 def main():
     mongo_db_host = os.environ["MONGO_DB_HOST"]
@@ -21,7 +22,8 @@ def main():
         else:
             best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=10)
 
-            with open("./best_val.txt", "w") as f:
+            best_path = get_logs_path("./logs")
+            with open(os.path.join(best_path, "./best_val.txt"), "w") as f:
                 f.write(json.dumps(best))
             return
 
