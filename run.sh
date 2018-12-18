@@ -17,11 +17,14 @@ else
     echo "[+] Im a worker ready for action..."
 fi
 
+nc -z $MONGO_DB_HOST $MONGO_DB_PORT
+
 while :; do
     if nc -z $MONGO_DB_HOST $MONGO_DB_PORT 2>/dev/null; then
         echo "server is up"
         hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.5 --exp-key=$EXPERIMENT_NAME --max-consecutive-failures=9999 &
         python ./main.py
+        exit
     else
         echo "server is down!"
     fi
