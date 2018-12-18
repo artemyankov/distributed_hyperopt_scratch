@@ -17,7 +17,7 @@ else
     echo "[+] Im a worker ready for action..."
 fi
 
-while [1]; do
+while :; do
     if nc -z $MONGO_DB_HOST $MONGO_DB_PORT 2>/dev/null; then
         echo "server is up"
         hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.5 --exp-key=$EXPERIMENT_NAME --max-consecutive-failures=9999 &
