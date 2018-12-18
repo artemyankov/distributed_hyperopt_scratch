@@ -4,6 +4,7 @@
 #export MONGO_DB_PORT=27017
 #export EXPERIMENT_NAME="howdy"
 
+apt-get update -y
 apt-get install -y netcat
 
 
