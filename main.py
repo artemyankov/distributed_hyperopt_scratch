@@ -23,9 +23,9 @@ def main():
             best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=10)
 
             if os.environ["JOB_NAME"] == "ps":
-                best_path = get_logs_path("./logs")
-                with open(os.path.join(best_path, "./best_val.json"), "w") as f:
-                    json.dumps(best, f)
+                save_path = os.path.join(get_logs_path("./logs"), "results.json")
+                with open(save_path, "w") as f:
+                    json.dump(json.dumps(best), f)
 
             return
 
