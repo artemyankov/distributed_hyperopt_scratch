@@ -24,8 +24,8 @@ def main():
 
             if os.environ["JOB_NAME"] == "ps":
                 best_path = get_logs_path("./logs")
-                with open(os.path.join(best_path, "./best_val.txt"), "w") as f:
-                    f.write(json.dumps(best))
+                with open(os.path.join(best_path, "./best_val.json"), "w") as f:
+                    json.dumps(best, f)
 
             return
 
