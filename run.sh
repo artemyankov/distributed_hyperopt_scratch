@@ -10,15 +10,22 @@ if [[ $JOB_NAME == "ps" ]]; then
     echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
     apt-get update
     apt-get install -y mongodb-org
-  #  mongod --fork --logpath ./mongod.log --port $MONGO_DB_PORT
     mongod --dbpath . --port $MONGO_DB_PORT --directoryperdb --fork --journal --logpath log.log --nohttpinterface
 
-
     echo "[+] Im a PS running Mongo"
-    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 --exp-key=$EXPERIMENT_NAME --max-consecutive-failures=9999 &
-    python ./main.py
 else
     echo "[+] Im a worker ready for action..."
-    hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 --exp-key=$EXPERIMENT_NAME --max-consecutive-failures=9999 &
-    python ./main.py
 fi
+
+while [1]; do
+    if nc -z $MONGO_DB_HOST $MONGO_DB_PORT 2>/dev/null; then
+        echo "server is up"
+        hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.5 --exp-key=$EXPERIMENT_NAME --max-consecutive-failures=9999 &
+        python ./main.py
+    else
+        echo "server is down!"
+    fi
+done
+
+
+
