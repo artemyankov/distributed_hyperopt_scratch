@@ -4,6 +4,9 @@
 #export MONGO_DB_PORT=27017
 #export EXPERIMENT_NAME="howdy"
 
+apt-get install -y netcat
+
+
 if [[ $JOB_NAME == "ps" ]]; then
     # install mongo and open up port
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
