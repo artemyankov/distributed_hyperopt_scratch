@@ -20,12 +20,12 @@ def main():
         except ServerSelectionTimeoutError:
             pass
         else:
-            best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=1000)
+            best = fmin(math.sin, hp.uniform('x', -2, 2), trials=trials, algo=tpe.suggest, max_evals=100)
 
             if os.environ["JOB_NAME"] == "ps":
                 save_path = os.path.join(get_logs_path("./logs"), "results.json")
                 with open(save_path, "w") as f:
-                    json.dump(json.dumps(best), f)
+                    json.dump(json.dumps(trials), f)
 
             return
 
