@@ -26,7 +26,7 @@ nc -z $MONGO_DB_HOST $MONGO_DB_PORT
 while :; do
     if nc -z $MONGO_DB_HOST $MONGO_DB_PORT 2>/dev/null; then
         echo "mongodb is up!"
-        hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=0.1 --exp-key=$EXPERIMENT_NAME &
+        hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=1.0 --exp-key=$EXPERIMENT_NAME &
         python ./main.py
         exit
     else
