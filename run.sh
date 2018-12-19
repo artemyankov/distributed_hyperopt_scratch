@@ -7,6 +7,9 @@
 apt-get update -y
 apt-get install -y netcat
 
+echo "Copying objective function to hyerpopt worker dir"
+MONGO_WORKER_PATH=$(dirname $(which hyperopt-mongo-worker))
+cp ./objective.py $MONGO_WORKER_PATH
 
 if [[ $JOB_NAME == "ps" ]]; then
     # install mongo and open up port
@@ -20,8 +23,6 @@ if [[ $JOB_NAME == "ps" ]]; then
 else
     echo "[+] Im a worker ready for action..."
 fi
-
-nc -z $MONGO_DB_HOST $MONGO_DB_PORT
 
 while :; do
     if nc -z $MONGO_DB_HOST $MONGO_DB_PORT 2>/dev/null; then
