@@ -66,7 +66,7 @@ import torch.optim as optim
 def train_cifar10(params):
 
 
-    ########################################################################
+    ############    ############################################################
     # The output of torchvision datasets are PILImage images of range [0, 1].
     # We transform them to Tensors of normalized range [-1, 1].
 
@@ -179,14 +179,10 @@ def train_cifar10(params):
             correct += (predicted == labels).sum().item()
 
     test_acc = 1. * correct / total
-    print('Accuracy of the network on the 10000 test images: %d %%' % (
-        100 * test_acc)
-
+    print('Accuracy of the network on the 10000 test images: {0}'.format(100. * test_acc))
     return test_acc
 
-
 if __name__ == '__main__':
-    main()
-
-
+    params = {'lr': 0.001, 'momentum': 0.9}
+    train_cifar10(params)
 
