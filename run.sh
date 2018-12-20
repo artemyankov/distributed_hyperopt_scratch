@@ -9,7 +9,7 @@ apt-get install -y netcat
 
 echo "Copying objective function to hyerpopt worker dir"
 MONGO_WORKER_PATH=$(dirname $(which hyperopt-mongo-worker))
-cp ./objective.py $MONGO_WORKER_PATH
+cp ./cifar10_tutorial.py $MONGO_WORKER_PATH
 
 if [[ $JOB_NAME == "ps" ]]; then
     # install mongo and open up port
@@ -28,7 +28,7 @@ while :; do
     if nc -z $MONGO_DB_HOST $MONGO_DB_PORT 2>/dev/null; then
         echo "mongodb is up!"
         hyperopt-mongo-worker --mongo=$MONGO_DB_HOST:$MONGO_DB_PORT/foo_db --poll-interval=1.0 --exp-key=$EXPERIMENT_NAME &
-        python ./main.py
+        python ./tune_cifar10.py
         exit
     else
         echo "mongodb is down!"
