@@ -22,7 +22,7 @@ def main():
             pass
         else:
             space = {
-                'lr': hp.loguniform('lr', -10, 2)
+                'lr': hp.loguniform('lr', -10, 2),
                 'momentum': hp.uniform('momentum', 0.1, 0.9)
             }
             best = fmin(train_cifar10, space=space, trials=trials, algo=tpe.suggest, max_evals=25)
